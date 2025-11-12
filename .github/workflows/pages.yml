@@ -1,15 +1,9 @@
-# 1) Haal remote wijzigingen binnen (houd jouw werk erbovenop)
-git pull --rebase origin main
-
-# 2) Maak (zo nodig) de workflow-map en het nieuwe workflow-bestand
-mkdir -p .github/workflows
-
-cat > .github/workflows/pages.yml <<'YAML'
-name: Build & Deploy Jekyll (Chirpy)
+name: Build and Deploy (Chirpy)
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -25,17 +19,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: ruby/setup-ruby@v1
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - run: bundle install --without development
+      - name: Install dependencies
+        run: bundle install --without development
 
-      - name: Build site
-        run: JEKYLL_ENV=production bundle exec jekyll build
+      - name: Build
+        run: JEKYLL_ENV=production bundle exec jekyll build --trace
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -49,6 +46,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - name: Deploy
+        id: deployment
         uses: actions/deploy-pages@v4
-YAML
