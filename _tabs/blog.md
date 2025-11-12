@@ -2,7 +2,7 @@
 layout: page
 title: Blog
 icon: fas fa-pen
-order: 2
+order: 3
 permalink: /blog/
 ---
 
