@@ -1,0 +1,13 @@
+/* 🧭 Maak content breder bij uitzoomen / ultra-brede schermen */
+@media (min-width: 1200px) {
+  .page .page__inner,
+  .post .post__inner {
+    max-width: clamp(820px, 85vw, 1400px);
+  }
+}
+@media (min-width: 1600px) {
+  .page .page__inner,
+  .post .post__inner {
+    max-width: clamp(900px, 90vw, 1600px);
+  }
+}
