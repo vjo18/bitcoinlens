@@ -8,6 +8,6 @@ title: Bitcoinlens
 
 Dit is mijn plek voor nuchtere, praktische inzichten rond bitcoin en on-chain data.
 - 📈 Straks komt hier ook een grafiek met de wekelijkse closing prijs.
-- 📝 Zin om te lezen? Ga naar de [Blog]({{ '/tabs/blog/' | relative_url }}).
+- 📝 Zin om te lezen? Ga naar de [Blog]({{ '/blog/' | relative_url }}).
 
 > Tip: voeg deze site toe aan je favorieten; updates volgen snel.

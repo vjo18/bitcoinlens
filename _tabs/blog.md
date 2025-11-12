@@ -3,6 +3,7 @@ layout: page
 title: Blog
 icon: fas fa-pen
 order: 2
+permalink: /blog/
 ---
 
 {% assign posts = site.posts %}
