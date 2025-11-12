@@ -1,0 +1,13 @@
+---
+layout: page
+title: Bitcoinlens
+# optional: permalink: /   # default is al /
+---
+
+# Welkom bij Bitcoinlens
+
+Dit is mijn plek voor nuchtere, praktische inzichten rond bitcoin en on-chain data.
+- 📈 Straks komt hier ook een grafiek met de wekelijkse closing prijs.
+- 📝 Zin om te lezen? Ga naar de [Blog]({{ '/tabs/blog/' | relative_url }}).
+
+> Tip: voeg deze site toe aan je favorieten; updates volgen snel.
