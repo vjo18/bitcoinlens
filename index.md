@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Bitcoinlens
+title:
 # optional: permalink: /   # default is al /
 ---
 

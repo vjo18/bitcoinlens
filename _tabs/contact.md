@@ -1,5 +1,6 @@
 ---
 # the default layout is 'page'
+title: Contact
 icon: fas fa-paper-plane
 order: 4
 ---
