@@ -1,0 +1,6 @@
+---
+# Dit front matter is nodig zodat Jekyll SCSS compileert
+---
+
+@import "jekyll-theme-chirpy";  /* laad het theme */
+@import "override";             /* laad jouw overrides */
