@@ -1,3 +1,10 @@
+# 1) Haal remote wijzigingen binnen (houd jouw werk erbovenop)
+git pull --rebase origin main
+
+# 2) Maak (zo nodig) de workflow-map en het nieuwe workflow-bestand
+mkdir -p .github/workflows
+
+cat > .github/workflows/pages.yml <<'YAML'
 name: Build & Deploy Jekyll (Chirpy)
 
 on:
@@ -25,10 +32,8 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      # Installeer gems (chirpy wordt nu correct opgehaald)
       - run: bundle install --without development
 
-      # Belangrijk: jouw _config.yml zet baseurl op /bitcoinlens
       - name: Build site
         run: JEKYLL_ENV=production bundle exec jekyll build
 
@@ -46,3 +51,4 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+YAML
