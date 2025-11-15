@@ -12,3 +12,135 @@
     max-width: clamp(900px, 90vw, 1600px);
   }
 }
+
+.btc-powerlaw-controls {
+  margin-bottom: 1rem;
+}
+
+.btc-powerlaw-charts .chart-block {
+  margin-bottom: 2rem;
+}
+
+/* ===== BTC Power Law layout ===== */
+
+.btc-pl-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.btc-pl-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.btc-pl-subtitle {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  color: #64748b; /* slate-500 */
+}
+
+/* KPI cards */
+
+.btc-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.btc-kpi-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.btc-kpi-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+}
+
+.btc-kpi-value {
+  margin-top: 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* Toggle (Y log) */
+
+.btc-pl-toggles {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btc-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btc-toggle input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.btc-toggle-switch {
+  width: 36px;
+  height: 20px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+.btc-toggle-switch::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.btc-toggle input[type="checkbox"]:checked + .btc-toggle-switch {
+  background: #22c55e; /* green-500 */
+}
+
+.btc-toggle input[type="checkbox"]:checked + .btc-toggle-switch::before {
+  transform: translateX(16px);
+}
+
+/* Charts layout */
+
+.btc-powerlaw-charts {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.chart-block h3 {
+  margin-bottom: 0.75rem;
+}
+
+.chart-block canvas {
+  max-width: 100%;
+}
