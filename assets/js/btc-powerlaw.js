@@ -1,198 +1,201 @@
 // assets/js/btc-powerlaw.js
 
 // =============== DATA ===============
-// 1) Plak hier je maandelijkse prijzen in EUR.
-//    Structuur is dezelfde als in je app: [{ date: 'YYYY-MM-DD', price: 123.45 }, ...]
-//
-//    Voor nu kun je tijdelijk je USD-data gebruiken.
-//    Als je straks de EUR-reeks hebt, vervang je gewoon dit array.
 
 const btcMonthlyCloses = [
-  { date: "2025-11-01", price: 109620.5 },
-  { date: "2025-10-01", price: 114591.9 },
-  { date: "2025-09-01", price: 114048.5 },
-  { date: "2025-08-01", price: 108226.8 },
-  { date: "2025-07-01", price: 115765.0 },
-  { date: "2025-06-01", price: 107171.1 },
-  { date: "2025-05-01", price: 104598.0 },
-  { date: "2025-04-01", price: 94184.4 },
-  { date: "2025-03-01", price: 82548.8 },
-  { date: "2025-02-01", price: 84381.2 },
-  { date: "2025-01-01", price: 94536.1 },
-  { date: "2024-12-01", price: 93557.2 },
-  { date: "2024-11-01", price: 96405.7 },
-  { date: "2024-10-01", price: 70281.8 },
-  { date: "2024-09-01", price: 63339.2 },
-  { date: "2024-08-01", price: 58978.6 },
-  { date: "2024-07-01", price: 64626.0 },
-  { date: "2024-06-01", price: 62754.3 },
-  { date: "2024-05-01", price: 67530.1 },
-  { date: "2024-04-01", price: 60666.6 },
-  { date: "2024-03-01", price: 71332.0 },
-  { date: "2024-02-01", price: 61169.3 },
-  { date: "2024-01-01", price: 42580.5 },
-  { date: "2023-12-01", price: 42272.5 },
-  { date: "2023-11-01", price: 37712.9 },
-  { date: "2023-10-01", price: 34650.6 },
-  { date: "2023-09-01", price: 26962.7 },
-  { date: "2023-08-01", price: 25937.3 },
-  { date: "2023-07-01", price: 29232.4 },
-  { date: "2023-06-01", price: 30472.9 },
-  { date: "2023-05-01", price: 27216.1 },
-  { date: "2023-04-01", price: 29252.1 },
-  { date: "2023-03-01", price: 28473.7 },
-  { date: "2023-02-01", price: 23130.5 },
-  { date: "2023-01-01", price: 23125.1 },
-  { date: "2022-12-01", price: 16537.4 },
-  { date: "2022-11-01", price: 17163.9 },
-  { date: "2022-10-01", price: 20496.3 },
-  { date: "2022-09-01", price: 19423.0 },
-  { date: "2022-08-01", price: 20043.9 },
-  { date: "2022-07-01", price: 23303.4 },
-  { date: "2022-06-01", price: 19926.6 },
-  { date: "2022-05-01", price: 31793.4 },
-  { date: "2022-04-01", price: 37650.0 },
-  { date: "2022-03-01", price: 45525.0 },
-  { date: "2022-02-01", price: 43188.2 },
-  { date: "2022-01-01", price: 38498.6 },
-  { date: "2021-12-01", price: 46219.5 },
-  { date: "2021-11-01", price: 56882.9 },
-  { date: "2021-10-01", price: 61309.6 },
-  { date: "2021-09-01", price: 43823.3 },
-  { date: "2021-08-01", price: 47130.4 },
-  { date: "2021-07-01", price: 41553.7 },
-  { date: "2021-06-01", price: 35026.9 },
-  { date: "2021-05-01", price: 37298.6 },
-  { date: "2021-04-01", price: 57720.3 },
-  { date: "2021-03-01", price: 58763.7 },
-  { date: "2021-02-01", price: 45164.0 },
-  { date: "2021-01-01", price: 33108.1 },
-  { date: "2020-12-01", price: 28949.4 },
-  { date: "2020-11-01", price: 19698.1 },
-  { date: "2020-10-01", price: 13797.3 },
-  { date: "2020-09-01", price: 10776.1 },
-  { date: "2020-08-01", price: 11644.2 },
-  { date: "2020-07-01", price: 11333.4 },
-  { date: "2020-06-01", price: 9135.4 },
-  { date: "2020-05-01", price: 9454.8 },
-  { date: "2020-04-01", price: 8629.0 },
-  { date: "2020-03-01", price: 6412.5 },
-  { date: "2020-02-01", price: 8543.7 },
-  { date: "2020-01-01", price: 9349.1 },
-  { date: "2019-12-01", price: 7196.4 },
-  { date: "2019-11-01", price: 7546.6 },
-  { date: "2019-10-01", price: 9152.6 },
-  { date: "2019-09-01", price: 8284.3 },
-  { date: "2019-08-01", price: 9594.4 },
-  { date: "2019-07-01", price: 10082.0 },
-  { date: "2019-06-01", price: 10818.6 },
-  { date: "2019-05-01", price: 8558.3 },
-  { date: "2019-04-01", price: 5320.8 },
-  { date: "2019-03-01", price: 4102.3 },
-  { date: "2019-02-01", price: 3816.6 },
-  { date: "2019-01-01", price: 3437.2 },
-  { date: "2018-12-01", price: 3709.4 },
-  { date: "2018-11-01", price: 4039.7 },
-  { date: "2018-10-01", price: 6365.9 },
-  { date: "2018-09-01", price: 6635.2 },
-  { date: "2018-08-01", price: 7033.8 },
-  { date: "2018-07-01", price: 7729.4 },
-  { date: "2018-06-01", price: 6398.9 },
-  { date: "2018-05-01", price: 7502.6 },
-  { date: "2018-04-01", price: 9245.1 },
-  { date: "2018-03-01", price: 6938.2 },
-  { date: "2018-02-01", price: 10333.9 },
-  { date: "2018-01-01", price: 10265.4 },
-  { date: "2017-12-01", price: 13850.4 },
-  { date: "2017-11-01", price: 9946.8 },
-  { date: "2017-10-01", price: 6451.2 },
-  { date: "2017-09-01", price: 4360.6 },
-  { date: "2017-08-01", price: 4735.1 },
-  { date: "2017-07-01", price: 2883.3 },
-  { date: "2017-06-01", price: 2480.6 },
-  { date: "2017-05-01", price: 2303.3 },
-  { date: "2017-04-01", price: 1351.9 },
-  { date: "2017-03-01", price: 1079.1 },
-  { date: "2017-02-01", price: 1189.3 },
-  { date: "2017-01-01", price: 965.5 },
-  { date: "2016-12-01", price: 963.4 },
-  { date: "2016-11-01", price: 742.5 },
-  { date: "2016-10-01", price: 698.7 },
-  { date: "2016-09-01", price: 608.1 },
-  { date: "2016-08-01", price: 573.9 },
-  { date: "2016-07-01", price: 621.9 },
-  { date: "2016-06-01", price: 670.0 },
-  { date: "2016-05-01", price: 528.9 },
-  { date: "2016-04-01", price: 448.5 },
-  { date: "2016-03-01", price: 415.7 },
-  { date: "2016-02-01", price: 436.2 },
-  { date: "2016-01-01", price: 369.8 },
-  { date: "2015-12-01", price: 430.0 },
-  { date: "2015-11-01", price: 378.0 },
-  { date: "2015-10-01", price: 311.2 },
-  { date: "2015-09-01", price: 235.9 },
-  { date: "2015-08-01", price: 229.5 },
-  { date: "2015-07-01", price: 283.7 },
-  { date: "2015-06-01", price: 264.1 },
-  { date: "2015-05-01", price: 229.8 },
-  { date: "2015-04-01", price: 235.8 },
-  { date: "2015-03-01", price: 244.1 },
-  { date: "2015-02-01", price: 254.1 },
-  { date: "2015-01-01", price: 218.5 },
-  { date: "2014-12-01", price: 318.2 },
-  { date: "2014-11-01", price: 374.9 },
-  { date: "2014-10-01", price: 337.9 },
-  { date: "2014-09-01", price: 388.2 },
-  { date: "2014-08-01", price: 481.8 },
-  { date: "2014-07-01", price: 589.5 },
-  { date: "2014-06-01", price: 635.1 },
-  { date: "2014-05-01", price: 627.9 },
-  { date: "2014-04-01", price: 445.6 },
-  { date: "2014-03-01", price: 444.7 },
-  { date: "2014-02-01", price: 573.9 },
-  { date: "2014-01-01", price: 938.8 },
-  { date: "2013-12-01", price: 805.9 },
-  { date: "2013-11-01", price: 1205.7 },
-  { date: "2013-10-01", price: 211.2 },
-  { date: "2013-09-01", price: 141.9 },
-  { date: "2013-08-01", price: 141.0 },
-  { date: "2013-07-01", price: 106.2 },
-  { date: "2013-06-01", price: 97.5 },
-  { date: "2013-05-01", price: 128.8 },
-  { date: "2013-04-01", price: 139.2 },
-  { date: "2013-03-01", price: 93.0 },
-  { date: "2013-02-01", price: 33.4 },
-  { date: "2013-01-01", price: 20.4 },
-  { date: "2012-12-01", price: 13.5 },
-  { date: "2012-11-01", price: 12.6 },
-  { date: "2012-10-01", price: 11.2 },
-  { date: "2012-09-01", price: 12.4 },
-  { date: "2012-08-01", price: 10.2 },
-  { date: "2012-07-01", price: 9.4 },
-  { date: "2012-06-01", price: 6.7 },
-  { date: "2012-05-01", price: 5.2 },
-  { date: "2012-04-01", price: 4.9 },
-  { date: "2012-03-01", price: 4.9 },
-  { date: "2012-02-01", price: 4.9 },
-  { date: "2012-01-01", price: 5.5 },
-  { date: "2011-12-01", price: 4.7 },
-  { date: "2011-11-01", price: 3.0 },
-  { date: "2011-10-01", price: 3.3 },
-  { date: "2011-09-01", price: 5.1 },
-  { date: "2011-08-01", price: 8.2 },
-  { date: "2011-07-01", price: 13.4 },
-  { date: "2011-06-01", price: 16.1 },
-  { date: "2011-05-01", price: 8.7 },
-  { date: "2011-04-01", price: 3.5 },
-  { date: "2011-03-01", price: 0.8 },
-  { date: "2011-02-01", price: 0.9 },
-  { date: "2011-01-01", price: 0.5 },
-  { date: "2010-12-01", price: 0.3 },
-  { date: "2010-11-01", price: 0.2 },
-  { date: "2010-10-01", price: 0.2 },
-  { date: "2010-09-01", price: 0.1 },
-  { date: "2010-08-01", price: 0.1 },
+  { date: "2025-10-31", price: 94886.5 },
+  { date: "2025-09-30", price: 97190.7 },
+  { date: "2025-08-31", price: 92600.0 },
+  { date: "2025-07-31", price: 101384.8 },
+  { date: "2025-06-30", price: 90961.9 },
+  { date: "2025-05-31", price: 92278.0 },
+  { date: "2025-04-30", price: 83202.1 },
+  { date: "2025-03-31", price: 76292.4 },
+  { date: "2025-02-28", price: 81334.0 },
+  { date: "2025-01-31", price: 98888.8 },
+  { date: "2024-12-31", price: 90168.1 },
+  { date: "2024-11-30", price: 91134.5 },
+  { date: "2024-10-31", price: 64531.9 },
+  { date: "2024-09-30", price: 56874.6 },
+  { date: "2024-08-31", price: 53380.0 },
+  { date: "2024-07-31", price: 59728.2 },
+  { date: "2024-06-30", price: 58393.0 },
+  { date: "2024-05-31", price: 62241.8 },
+  { date: "2024-04-30", price: 56833.5 },
+  { date: "2024-03-31", price: 66129.9 },
+  { date: "2024-02-29", price: 56565.9 },
+  { date: "2024-01-31", price: 39405.7 },
+  { date: "2023-12-31", price: 38397.0 },
+  { date: "2023-11-30", price: 34645.6 },
+  { date: "2023-10-31", price: 32767.9 },
+  { date: "2023-09-30", price: 25506.9 },
+  { date: "2023-08-31", price: 23897.9 },
+  { date: "2023-07-31", price: 26531.8 },
+  { date: "2023-06-30", price: 27901.6 },
+  { date: "2023-05-31", price: 25466.0 },
+  { date: "2023-04-30", price: 26543.1 },
+  { date: "2023-03-31", price: 26266.6 },
+  { date: "2023-02-28", price: 21874.0 },
+  { date: "2023-01-31", price: 21296.5 },
+  { date: "2022-12-31", price: 15420.9 },
+  { date: "2022-11-30", price: 16475.1 },
+  { date: "2022-10-31", price: 20735.0 },
+  { date: "2022-09-30", price: 19818.8 },
+  { date: "2022-08-31", price: 19975.4 },
+  { date: "2022-07-31", price: 22840.5 },
+  { date: "2022-06-30", price: 19026.0 },
+  { date: "2022-05-31", price: 29590.4 },
+  { date: "2022-04-30", price: 35759.3 },
+  { date: "2022-03-31", price: 41095.8 },
+  { date: "2022-02-28", price: 38496.0 },
+  { date: "2022-01-31", price: 34295.8 },
+  { date: "2021-12-31", price: 40660.3 },
+  { date: "2021-11-30", price: 50300.0 },
+  { date: "2021-10-31", price: 53112.2 },
+  { date: "2021-09-30", price: 37862.1 },
+  { date: "2021-08-31", price: 39915.0 },
+  { date: "2021-07-31", price: 34904.2 },
+  { date: "2021-06-30", price: 29560.1 },
+  { date: "2021-05-31", price: 30504.6 },
+  { date: "2021-04-30", price: 47965.5 },
+  { date: "2021-03-31", price: 50008.3 },
+  { date: "2021-02-28", price: 37388.6 },
+  { date: "2021-01-31", price: 27352.0 },
+  { date: "2020-12-31", price: 23631.3 },
+  { date: "2020-11-30", price: 16424.1 },
+  { date: "2020-10-31", price: 11847.6 },
+  { date: "2020-09-30", price: 9189.9 },
+  { date: "2020-08-31", price: 9780.5 },
+  { date: "2020-07-31", price: 9636.5 },
+  { date: "2020-06-30", price: 8139.5 },
+  { date: "2020-05-31", price: 8508.2 },
+  { date: "2020-04-30", price: 7903.9 },
+  { date: "2020-03-31", price: 5835.5 },
+  { date: "2020-02-29", price: 7736.9 },
+  { date: "2020-01-31", price: 8414.0 },
+  { date: "2019-12-31", price: 6397.4 },
+  { date: "2019-11-30", price: 6867.6 },
+  { date: "2019-10-31", price: 8208.1 },
+  { date: "2019-09-30", price: 7619.0 },
+  { date: "2019-08-31", price: 8761.3 },
+  { date: "2019-07-31", price: 9100.4 },
+  { date: "2019-06-30", price: 9452.5 },
+  { date: "2019-05-31", price: 7677.8 },
+  { date: "2019-04-30", price: 4701.6 },
+  { date: "2019-03-31", price: 3646.2 },
+  { date: "2019-02-28", price: 3340.7 },
+  { date: "2019-01-31", price: 2978.7 },
+  { date: "2018-12-31", price: 3235.4 },
+  { date: "2018-11-30", price: 3515.2 },
+  { date: "2018-10-31", price: 5579.0 },
+  { date: "2018-09-30", price: 5687.0 },
+  { date: "2018-08-31", price: 6031.2 },
+  { date: "2018-07-31", price: 6600.6 },
+  { date: "2018-06-30", price: 5460.1 },
+  { date: "2018-05-31", price: 6399.9 },
+  { date: "2018-04-30", price: 7640.8 },
+  { date: "2018-03-31", price: 5615.0 },
+  { date: "2018-02-28", price: 8430.0 },
+  { date: "2018-01-31", price: 11465.2 },
+  { date: "2017-12-31", price: 11993.6 },
+  { date: "2017-11-30", price: 8462.0 },
+  { date: "2017-10-31", price: 5535.0 },
+  { date: "2017-09-30", price: 3659.0 },
+  { date: "2017-08-31", price: 3980.0 },
+  { date: "2017-07-31", price: 2469.8 },
+  { date: "2017-06-30", price: 2142.9 },
+  { date: "2017-05-31", price: 2048.0 },
+  { date: "2017-04-30", price: 1224.0 },
+  { date: "2017-03-31", price: 1007.0 },
+  { date: "2017-02-28", price: 1117.9 },
+  { date: "2017-01-31", price: 900.6 },
+  { date: "2016-12-31", price: 913.5 },
+  { date: "2016-11-30", price: 700.3 },
+  { date: "2016-10-31", price: 633.5 },
+  { date: "2016-09-30", price: 545.7 },
+  { date: "2016-08-31", price: 512.9 },
+  { date: "2016-07-31", price: 554.9 },
+  { date: "2016-06-30", price: 607.4 },
+  { date: "2016-05-31", price: 477.5 },
+  { date: "2016-04-30", price: 390.7 },
+  { date: "2016-03-31", price: 367.4 },
+  { date: "2016-02-29", price: 397.1 },
+  { date: "2016-01-31", price: 343.7 },
+  { date: "2015-12-31", price: 396.3 },
+  { date: "2015-11-30", price: 356.8 },
+  { date: "2015-10-31", price: 280.1 },
+  { date: "2015-09-30", price: 211.0 },
+  { date: "2015-08-31", price: 206.2 },
+  { date: "2015-07-31", price: 259.1 },
+  { date: "2015-06-30", price: 237.0 },
+  { date: "2015-05-31", price: 208.3 },
+  { date: "2015-04-30", price: 210.3 },
+  { date: "2015-03-31", price: 228.4 },
+  { date: "2015-02-28", price: 220.9 },
+  { date: "2015-01-31", price: 193.5 },
+  { date: "2014-12-31", price: 265.0 },
+  { date: "2014-11-30", price: 300.7 },
+  { date: "2014-10-31", price: 270.1 },
+  { date: "2014-09-30", price: 306.9 },
+  { date: "2014-08-31", price: 367.0 },
+  { date: "2014-07-31", price: 436.4 },
+  { date: "2014-06-30", price: 466.2 },
+  { date: "2014-05-31", price: 457.0 },
+  { date: "2014-04-30", price: 324.6 },
+  { date: "2014-03-31", price: 335.1 },
+  { date: "2014-02-28", price: 413.7 },
+  { date: "2014-01-31", price: 592.3 },
+  { date: "2013-12-31", price: 539.0 },
+  { date: "2013-11-30", price: 845.3 },
+  { date: "2013-10-31", price: 149.8 },
+  { date: "2013-09-30", price: 104.89 },
+  { date: "2013-08-31", price: 106.62 },
+  { date: "2013-07-31", price: 79.82 },
+  { date: "2013-06-30", price: 74.93 },
+  { date: "2013-05-31", price: 99.06 },
+  { date: "2013-04-30", price: 105.71 },
+  { date: "2013-03-31", price: 72.52 },
+  { date: "2013-02-28", price: 25.56 },
+  { date: "2013-01-31", price: 15.02 },
+  { date: "2012-12-31", price: 10.23 },
+  { date: "2012-11-30", price: 9.69 },
+  { date: "2012-10-31", price: 8.64 },
+  { date: "2012-09-30", price: 9.64 },
+  { date: "2012-08-31", price: 8.11 },
+  { date: "2012-07-31", price: 7.64 },
+  { date: "2012-06-30", price: 5.29 },
+  { date: "2012-05-31", price: 4.21 },
+  { date: "2012-04-30", price: 3.70 },
+  { date: "2012-03-31", price: 3.67 },
+  { date: "2012-02-29", price: 3.68 },
+  { date: "2012-01-31", price: 4.21 },
+  { date: "2011-12-31", price: 3.63 },
+  { date: "2011-11-30", price: 2.23 },
+  { date: "2011-10-31", price: 2.38 },
+  { date: "2011-09-30", price: 3.81 },
+  { date: "2011-08-31", price: 5.70 },
+  { date: "2011-07-31", price: 9.31 },
+  { date: "2011-06-30", price: 11.10 },
+  { date: "2011-05-31", price: 6.04 },
+  { date: "2011-04-30", price: 2.36 },
+  { date: "2011-03-31", price: 0.56 },
+  { date: "2011-02-28", price: 0.65 },
+  { date: "2011-01-31", price: 0.37 },
+  { date: "2010-12-31", price: 0.22 },
+  { date: "2010-11-30", price: 0.15 },
+  { date: "2010-10-31", price: 0.14 },
+  { date: "2010-09-30", price: 0.07 },
+  { date: "2010-08-31", price: 0.08 }
 ];
+
+// Zorg dat alle charts exact dezelfde fonts gebruiken
+if (typeof Chart !== "undefined") {
+  Chart.defaults.font.family =
+    "'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+  Chart.defaults.font.size = 11;
+  Chart.defaults.color = "#0f172a";
+}
+
 
 // =============== CONSTANTS & HELPERS ===============
 
@@ -292,15 +295,59 @@ function formatYTick(v) {
   return v.toPrecision(2);
 }
 
+// helper voor x-tick → jaarlabel
+function formatXTickDays(value) {
+  const days = Number(value);
+  if (!isFinite(days) || days <= 0) return "";
+  const year = 2009 + Math.floor(days / 365);
+  return year.toString();
+}
+
 // =============== DATA PREP ===============
 
-// power-law parameters (kopie uit je app)
-const B_EXP = 5.5697;
-const A_AVG = 8.85116e-17;
-const A_LOWER = A_AVG * 0.4;
+// price = a * days^b
+function pricePLDays(a, b, dateStr) {
+  const d = daysSinceGenesisFromDateStr(dateStr);
+  return a * Math.pow(d, b);
+}
+
+// rollende fits: cumulatieve regressie tot en met elke maand
+function buildRollingFits(data) {
+  const sorted = [...data].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+
+  const results = [];
+  const xsAll = [];
+  const ysAll = [];
+
+  for (let i = 0; i < sorted.length; i++) {
+    const row = sorted[i];
+    const d = daysSinceGenesisFromDateStr(row.date);
+    if (d <= 0 || row.price <= 0) continue;
+
+    xsAll.push(Math.log10(d));
+    ysAll.push(Math.log10(row.price));
+
+    if (xsAll.length < 12) continue; // nog te weinig punten
+
+    const { A, B, r2 } = linearRegressionStats(xsAll, ysAll);
+
+    results.push({
+      date: row.date,
+      year: new Date(row.date + "T00:00:00Z").getUTCFullYear(),
+      bExp: B,
+      aCoef: Math.pow(10, A),
+      r2,
+      n: xsAll.length,
+    });
+  }
+
+  return results;
+}
 
 // prijs + power law lijnen, mét projectie tot 2054
-function buildPriceSeries() {
+function buildPriceSeries(aAvg, bExp, aLower) {
   const cutoff = "2010-05-01";
 
   const sorted = [...btcMonthlyCloses].sort((a, b) =>
@@ -315,8 +362,8 @@ function buildPriceSeries() {
     rows.push({
       date: row.date,
       price: row.price,
-      plAvg: pricePLDays(A_AVG, B_EXP, row.date),
-      plLower: pricePLDays(A_LOWER, B_EXP, row.date),
+      plAvg: pricePLDays(aAvg, bExp, row.date),
+      plLower: pricePLDays(aLower, bExp, row.date),
     });
   }
 
@@ -327,7 +374,6 @@ function buildPriceSeries() {
     let y = lastDate.getUTCFullYear();
     let m = lastDate.getUTCMonth() + 1;
 
-    // start bij maand NÁ de laatste close
     m++;
     if (m > 12) {
       m = 1;
@@ -343,8 +389,8 @@ function buildPriceSeries() {
       rows.push({
         date: dateStr,
         price: null,
-        plAvg: pricePLDays(A_AVG, B_EXP, dateStr),
-        plLower: pricePLDays(A_LOWER, B_EXP, dateStr),
+        plAvg: pricePLDays(aAvg, bExp, dateStr),
+        plLower: pricePLDays(aLower, bExp, dateStr),
       });
 
       m++;
@@ -364,11 +410,34 @@ let priceChart = null;
 let slopeChart = null;
 let r2Chart = null;
 
-function createPriceChart(ctx, yLog, priceData) {
-  const labels = priceData.map((d) => d.date);
-  const marketPrices = priceData.map((d) => d.price);
-  const plAvg = priceData.map((d) => d.plAvg);
-  const plLower = priceData.map((d) => d.plLower);
+// hoofdchart met X/Y log-toggle + jaartallen op de x-as
+function createPriceChart(ctx, yLog, xLog, priceData) {
+  const pointsMarket = [];
+  const pointsAvg = [];
+  const pointsLower = [];
+
+  for (const row of priceData) {
+    const d = daysSinceGenesisFromDateStr(row.date);
+    pointsMarket.push({
+      x: d,
+      y: row.price ?? null,
+      date: row.date,
+    });
+    pointsAvg.push({
+      x: d,
+      y: row.plAvg,
+      date: row.date,
+    });
+    pointsLower.push({
+      x: d,
+      y: row.plLower,
+      date: row.date,
+    });
+  }
+
+  // ✅ bepaal eerste echte datapunt (met price) en gebruik dat als x-min
+  const firstWithPrice = pointsMarket.find(p => p.y != null);
+  const minDays = firstWithPrice ? firstWithPrice.x : 1;
 
   if (priceChart) {
     priceChart.destroy();
@@ -377,33 +446,35 @@ function createPriceChart(ctx, yLog, priceData) {
   priceChart = new Chart(ctx, {
     type: "line",
     data: {
-      labels,
       datasets: [
         {
           label: "BTC maandelijkse close (EUR)",
-          data: marketPrices,
+          data: pointsMarket,
           borderWidth: 1.8,
-          borderColor: "#f97316", // oranje
+          borderColor: "#f97316",
           pointRadius: 0,
           spanGaps: false,
+          parsing: false,
         },
         {
           label: "Power law middenlijn",
-          data: plAvg,
+          data: pointsAvg,
           borderWidth: 1.5,
-          borderColor: "#0f172a", // donker
+          borderColor: "#0f172a",
           borderDash: [4, 2],
           pointRadius: 0,
           spanGaps: true,
+          parsing: false,
         },
         {
           label: "Power law support",
-          data: plLower,
+          data: pointsLower,
           borderWidth: 1.5,
-          borderColor: "#2563eb", // blauw
+          borderColor: "#2563eb",
           borderDash: [2, 2],
           pointRadius: 0,
           spanGaps: true,
+          parsing: false,
         },
       ],
     },
@@ -415,12 +486,19 @@ function createPriceChart(ctx, yLog, priceData) {
       },
       scales: {
         x: {
-          type: "category",
+          type: xLog ? "logarithmic" : "linear",
+          // ✅ start x-as bij eerste datapunt, ook in log-modus
+          min: minDays,
           ticks: {
-            maxTicksLimit: 10,
+            maxTicksLimit: 12,
+            callback: (value) => formatXTickDays(value), // toont alleen jaartal
           },
           grid: {
             color: "rgba(148, 163, 184, 0.3)",
+          },
+          title: {
+            display: true,
+            text: "Days since genesis",
           },
         },
         y: {
@@ -432,6 +510,10 @@ function createPriceChart(ctx, yLog, priceData) {
           grid: {
             color: "rgba(148, 163, 184, 0.3)",
           },
+          title: {
+            display: true,
+            text: "BTC prijs (EUR)",
+          },
         },
       },
       plugins: {
@@ -440,6 +522,10 @@ function createPriceChart(ctx, yLog, priceData) {
         },
         tooltip: {
           callbacks: {
+            title: (items) => {
+              const raw = items[0].raw;
+              return raw && raw.date ? raw.date : "";
+            },
             label: (context) =>
               `${context.dataset.label}: ${formatMoneyEUR(
                 context.parsed.y
@@ -450,6 +536,7 @@ function createPriceChart(ctx, yLog, priceData) {
     },
   });
 }
+
 
 function createSlopeChart(ctx, rollingFits) {
   const labels = rollingFits.map((d) => d.date);
@@ -473,13 +560,31 @@ function createSlopeChart(ctx, rollingFits) {
     },
     options: {
       responsive: true,
+      interaction: {
+        mode: "index",
+        intersect: false,        // ✅ tooltip triggert op hele verticale strip
+      },
       scales: {
         x: {
-          type: "category",
-          ticks: { maxTicksLimit: 10 },
+  type: "category",
+  ticks: {
+    maxTicksLimit: 8,
+    callback: (value) => {
+      const idx = typeof value === "number" ? value : Number(value);
+      const label = labels[idx];
+      return label ? label.slice(0, 4) : ""; // alleen jaar
+    },
+  },
+          grid: {
+            color: "rgba(148, 163, 184, 0.3)",
+          },
         },
         y: {
           type: "linear",
+          ticks: {},
+          grid: {
+            color: "rgba(148, 163, 184, 0.3)",
+          },
         },
       },
       plugins: {
@@ -494,6 +599,8 @@ function createSlopeChart(ctx, rollingFits) {
     },
   });
 }
+
+
 
 function createR2Chart(ctx, rollingFits) {
   const labels = rollingFits.map((d) => d.date);
@@ -517,15 +624,33 @@ function createR2Chart(ctx, rollingFits) {
     },
     options: {
       responsive: true,
+      interaction: {
+        mode: "index",
+        intersect: false,        // ✅ zelfde tooltip-gedrag als hoofdchart
+      },
       scales: {
         x: {
           type: "category",
-          ticks: { maxTicksLimit: 10 },
+          ticks: {
+            maxTicksLimit: 8,
+            callback: (value) => {
+              const idx = typeof value === "number" ? value : Number(value);
+              const label = labels[idx];
+              return label ? label.slice(0, 4) : ""; // alleen jaar
+            },
+          },
+          grid: {
+            color: "rgba(148, 163, 184, 0.3)",
+          },
         },
         y: {
           type: "linear",
           min: 0,
           max: 1,
+          ticks: {},
+          grid: {
+            color: "rgba(148, 163, 184, 0.3)",
+          },
         },
       },
       plugins: {
@@ -541,15 +666,39 @@ function createR2Chart(ctx, rollingFits) {
   });
 }
 
+
 // kleine helper voor KPI's
 function setKpiText(id, text) {
   const el = document.getElementById(id);
   if (el) el.textContent = text;
 }
 
+async function fetchLiveBtceur() {
+  try {
+    const resp = await fetch("https://api.coinbase.com/v2/prices/BTC-EUR/spot");
+    if (!resp.ok) {
+      throw new Error("HTTP " + resp.status);
+    }
+
+    const json = await resp.json();
+    const amount = parseFloat(json?.data?.amount);
+
+    if (!isFinite(amount)) {
+      throw new Error("Ongeldige amount uit API");
+    }
+
+    return amount;
+  } catch (err) {
+    console.warn("Kon live BTCEUR niet ophalen:", err);
+    return null; // fallback naar laatste close
+  }
+}
+
+
 // =============== INIT ===============
 
 document.addEventListener("DOMContentLoaded", () => {
+
   if (!btcMonthlyCloses.length) {
     console.warn(
       "btcMonthlyCloses is leeg – vergeet je prijsdata niet te plakken!"
@@ -557,8 +706,19 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const priceData = buildPriceSeries();
+  // eerst alle fits berekenen
   const rollingFits = buildRollingFits(btcMonthlyCloses);
+  const latestFit = rollingFits.length
+    ? rollingFits[rollingFits.length - 1]
+    : null;
+
+  // power-law parameters uit de meest recente fit
+  const B_EXP = latestFit ? latestFit.bExp : 5.5697;
+  const A_AVG = latestFit ? latestFit.aCoef : 8.85116e-17;
+  const A_LOWER = A_AVG * 0.4;
+
+  // series opbouwen met die a/b
+  const priceData = buildPriceSeries(A_AVG, B_EXP, A_LOWER);
 
   const priceCtx = document
     .getElementById("btc-price-chart")
@@ -570,10 +730,21 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("btc-r2-chart")
     .getContext("2d");
 
-  const yLogToggle = document.getElementById("y-log-toggle");
+  const yLogToggle =
+    document.getElementById("y-log-toggle") ||
+    document.getElementById("toggle-ylog");
+  const xLogToggle =
+    document.getElementById("x-log-toggle") ||
+    document.getElementById("toggle-xlog");
 
-  // eerste render (Y log)
-  createPriceChart(priceCtx, true, priceData);
+  let useYLog = true;
+  let useXLog = false;
+
+  if (yLogToggle) useYLog = !!yLogToggle.checked;
+  if (xLogToggle) useXLog = !!xLogToggle.checked;
+
+  // eerste render
+  createPriceChart(priceCtx, useYLog, useXLog, priceData);
   createSlopeChart(slopeCtx, rollingFits);
   createR2Chart(r2Ctx, rollingFits);
 
@@ -587,11 +758,18 @@ document.addEventListener("DOMContentLoaded", () => {
     setKpiText("kpi-last-close", formatMoneyEUR(lastRow.price));
   }
 
-  // vandaag in UTC
+    // Probeer live BTCEUR prijs op te halen (overschrijft laatste close als het lukt)
+  fetchLiveBtceur().then((livePrice) => {
+    if (livePrice !== null) {
+      setKpiText("kpi-last-close", formatMoneyEUR(livePrice));
+    }
+  });
+
+
   const todayIso = new Date().toISOString().slice(0, 10);
   const dToday = daysSinceGenesisFromDateStr(todayIso);
-  const plAvgToday = A_AVG * Math.pow(dToday, B_EXP);
-  const plLowerToday = A_LOWER * Math.pow(dToday, B_EXP);
+  const plAvgToday = pricePLDays(A_AVG, B_EXP, todayIso);
+  const plLowerToday = pricePLDays(A_LOWER, B_EXP, todayIso);
   const daysSinceGenesisToday = Math.floor(dToday);
 
   setKpiText("kpi-pl-avg", formatMoneyEUR(plAvgToday));
@@ -600,19 +778,27 @@ document.addEventListener("DOMContentLoaded", () => {
     "kpi-days-genesis",
     daysSinceGenesisToday.toLocaleString("nl-BE")
   );
-  setKpiText("kpi-a-scale", A_AVG.toExponential(3));
-  setKpiText("kpi-b-exp", B_EXP.toFixed(4));
 
-  const latestFit = rollingFits.length
-    ? rollingFits[rollingFits.length - 1]
-    : null;
+  setKpiText(
+    "kpi-a-scale",
+    latestFit ? latestFit.aCoef.toExponential(3) : "-"
+  );
+  setKpiText("kpi-b-exp", latestFit ? latestFit.bExp.toFixed(4) : "-");
   setKpiText("kpi-r2", latestFit ? latestFit.r2.toFixed(3) : "-");
 
   // toggle log/linear Y
   if (yLogToggle) {
     yLogToggle.addEventListener("change", (e) => {
-      const useLog = e.target.checked;
-      createPriceChart(priceCtx, useLog, priceData);
+      useYLog = e.target.checked;
+      createPriceChart(priceCtx, useYLog, useXLog, priceData);
+    });
+  }
+
+  // toggle log/linear X
+  if (xLogToggle) {
+    xLogToggle.addEventListener("change", (e) => {
+      useXLog = e.target.checked;
+      createPriceChart(priceCtx, useYLog, useXLog, priceData);
     });
   }
 });
