@@ -480,6 +480,7 @@ function createPriceChart(ctx, yLog, xLog, priceData) {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       interaction: {
         mode: "index",
         intersect: false,
@@ -518,6 +519,7 @@ function createPriceChart(ctx, yLog, xLog, priceData) {
       },
       plugins: {
         legend: {
+          display: true,
           position: "bottom",
         },
         tooltip: {
@@ -560,6 +562,7 @@ function createSlopeChart(ctx, rollingFits) {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       interaction: {
         mode: "index",
         intersect: false,        // ✅ tooltip triggert op hele verticale strip
@@ -624,6 +627,7 @@ function createR2Chart(ctx, rollingFits) {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       interaction: {
         mode: "index",
         intersect: false,        // ✅ zelfde tooltip-gedrag als hoofdchart

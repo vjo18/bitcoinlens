@@ -65,20 +65,27 @@ permalink: /grafieken/btc-powerlaw/
 
 <div class="btc-powerlaw-charts">
   <div class="chart-block">
-    <h3>BTC prijs + power law (support & middenlijn)</h3>
-    <p class="chart-subtitle">Maandelijkse closes in EUR • sinds 2010</p>
+  <h3>BTC prijs + power law (support & middenlijn)</h3>
+  <p class="chart-subtitle">Maandelijkse closes in EUR • sinds 2010</p>
+  <div class="chart-canvas">
     <canvas id="btc-price-chart"></canvas>
   </div>
+</div>
 
-  <div class="chart-block">
-    <h3>b exponent (slope) doorheen de tijd</h3>
+<div class="chart-block">
+  <h3>b exponent (slope) doorheen de tijd</h3>
+  <div class="chart-canvas">
     <canvas id="btc-slope-chart"></canvas>
   </div>
+</div>
 
-  <div class="chart-block">
-    <h3>R² (fit quality) doorheen de tijd</h3>
+<div class="chart-block">
+  <h3>R² (fit quality) doorheen de tijd</h3>
+  <div class="chart-canvas">
     <canvas id="btc-r2-chart"></canvas>
   </div>
+</div>
+
 </div>
 
 <style>
@@ -289,6 +296,7 @@ body[data-theme="dark"] .btc-kpi-value {
   background: #ffffff;
   border: 1px solid #e5e7eb;
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  position: relative;          /* aanbevolen door Chart.js */
 }
 
 .chart-block h3 {
@@ -303,16 +311,26 @@ body[data-theme="dark"] .btc-kpi-value {
   color: #94a3b8;
 }
 
-.chart-block canvas {
-  width: 100% !important;
-  height: 260px !important;
+/* Canvas krijgt z'n hoogte via een wrapper, niet via de card zelf */
+.chart-canvas {
+  position: relative;
+  height: 260px;          /* hoogte voor de 2 onderste grafieken */
 }
 
+/* eerste (hoofd)grafiek mag wat hoger zijn */
 @media (min-width: 1024px) {
-  .btc-powerlaw-charts .chart-block:first-child canvas {
-    height: 360px !important;
+  .chart-block:first-child .chart-canvas {
+    height: 360px;
   }
 }
+
+/* Chart.js vult de wrapper volledig */
+.chart-canvas canvas {
+  width: 100%;
+  height: 100% !important;
+  display: block;
+}
+
 
 body[data-theme="dark"] .chart-block {
   background: rgba(15, 23, 42, 0.96);
