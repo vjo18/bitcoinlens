@@ -3,6 +3,7 @@
 // =============== DATA ===============
 
 const btcMonthlyCloses = [
+  // BEGIN BTC_MONTHLY_CLOSES
   { date: "2025-10-31", price: 94886.5 },
   { date: "2025-09-30", price: 97190.7 },
   { date: "2025-08-31", price: 92600.0 },
@@ -186,6 +187,7 @@ const btcMonthlyCloses = [
   { date: "2010-10-31", price: 0.14 },
   { date: "2010-09-30", price: 0.07 },
   { date: "2010-08-31", price: 0.08 }
+  // END BTC_MONTHLY_CLOSES
 ];
 
 // Zorg dat alle charts exact dezelfde fonts gebruiken

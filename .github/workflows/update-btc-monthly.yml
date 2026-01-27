@@ -1,0 +1,36 @@
+name: Update BTC monthly closes
+
+on:
+  schedule:
+    - cron: "15 3 1 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Update monthly closes
+        run: node tools/update-btc-monthly.js
+
+      - name: Commit and push if changed
+        run: |
+          if git status --porcelain | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add assets/js/btc-powerlaw.js
+            git commit -m "Update BTC monthly closes"
+            git push
+          else
+            echo "No changes to commit."
+          fi
